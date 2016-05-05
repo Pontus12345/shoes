@@ -1,0 +1,138 @@
+@media screen and (max-width: 700px) {
+	body #aside-left{
+		display: none;		
+	}
+	
+	#slideshow img {
+		width: 100%;
+		height: 200px;
+	}
+	iframe {
+		width: 110px;
+	}
+	footer {
+		float: left;
+	}
+	#menu-footer ul{
+		float: left;
+	}
+	footer p {
+		float: left;
+	}
+	.text-contact {
+		width: 200px;
+	}
+	.search-control {
+		width: 80px !important;
+	}
+	.wrap-contact-us .text-contact{
+		width: 300px;
+	}
+	body .page-account {
+		width: 200px;
+		margin: 10px 10px;
+	}
+	body .page-account #updateUser input {
+		font-size: 13px;
+	}
+	.goog-te-gadget-simple {
+		width: 100px;
+	}
+	#google_translate_element span {
+		display: none;
+	}
+	#updateUser .btn-login {
+		font-size: 10px !important;	
+	}
+	.wrap-contact-us .text-contact{
+		width: 200px;
+	}
+	.imgLarge {
+		width: 204px;
+		height: 204px;
+	}
+	.getProduct-info-p img{
+		width: 100px;
+		height: 170px;
+	}
+	
+	.getProduct-info-p {
+		display: block;
+	}
+
+	.getProduct-info-p p {
+		font-size: 13px;
+	}
+	.getProduct-info-p input {
+		width: 100px;
+		font-size: 13px;
+	}
+	body #forum-id #sub-id {
+		width: 100%;
+	}
+	#forum-id input {
+		width: 100%;
+		font-size: 13px;
+	}
+	body #reply-id .form-control {
+		min-width: 40% !important;
+		min-height: 30% !important;
+		width: 70%;
+	}
+	body #reply-id .reply-name {
+		width: 70%;
+	}
+	body #reply-id input[type="submit"] {
+		width: 70%;		
+	}
+	body #reply-id label {
+		text-align: left;
+	}
+	body .cart-center {
+		width: 70%;
+		margin: 0;
+
+	}
+	body content p {
+		line-height: 25px;
+	}
+	.cart-center {
+		font-size: 13px;
+	}
+	#products-info p {
+		display: none;
+	}
+	#products-info {
+		width: 100%;
+	}
+	#productsName {
+		display: none;
+	}
+	.getProd p {
+		margin: 0;
+		display: block;
+	}
+	.getProd h3 {
+		line-height: 25px;
+	}
+	.blogg-right {
+		display: none;
+	}
+	body #forum-user {
+		width: 50%;
+	}
+	body #forum-user {
+	    margin: 50px 50px;	
+	}
+	.getProduct-info img {
+		width: 200px !important;
+		height: 200px !important;
+	}
+	.prod-info {
+		width: 200px;
+	}
+	#logo {
+		width: 200px;
+	}
+
+}

@@ -1,0 +1,1 @@
+You have resived a message from Customer: {{$name}} <br /> email: {{$email}} <br /> Message: {{$text}}  

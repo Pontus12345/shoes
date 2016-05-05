@@ -6,8 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
-    },
+        "laravel/framework": "5.2.*",
+		"illuminate/html": "5.*",
+		"anouar/paypalpayment": "~1.0",
+		"aws/aws-sdk-php": "~3.0",
+		"guzzlehttp/guzzle": "~5.3|~6.0"
+		},
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
