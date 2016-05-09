@@ -1,25 +1,19 @@
-<!DOCTYPE html>
 @extends('Runningshoes/layouts.default')
 @section('Runningshoes/content')
+
 <div class="display-inline">
 	<div id="slideshow">
-
 		@foreach ($Slides as $Slide)
 			<div class="slides">
 				<img class="Slide" src="{{ $Slide->image }}" />
 			</div>
 		@endforeach
-
 	</div>
 
 	<div id="clipp">
-		<br /> 
-		<br />
-		<iframe src="https://www.youtube.com/embed/C0DPdy98e4c"></iframe><br><br>
+		<iframe src="https://www.youtube.com/embed/C0DPdy98e4c"></iframe>
 		<iframe src="https://www.youtube.com/embed/C0DPdy98e4c"></iframe>
 	</div>
-	<br /> 
-	<br />
 
 	<div id="info">	
 		<h2>Info About the site</h2>
@@ -37,6 +31,7 @@
 	</div>
 	
 	<center>
+		
 		<div id="Random-product">	
 			<div class="make-left">
 			
@@ -44,8 +39,11 @@
 			
 					<div class="align-products">
 					    <img src="{{ $getRProduct->product_image }}" height="100px" width="100px" name="{{ $getRProduct->products_name }}" />
-					    <br />
-					    <h3><a href="#"> {{ $getRProduct->product_title }}</a></h3>
+					    
+					    <h3>
+					    	<a href="#"> {{ $getRProduct->product_title }}</a>
+				    	</h3>
+
 					    <p>{{ $getRProduct->Products_price }} $</p>
 						
 						@if ($getRProduct->products_antal > 0)
@@ -63,11 +61,10 @@
 				@endforeach
 			
 			</div>
-		</div>		
+		</div>
+
 	</center>
-	<br /> 
-	<br /> 
-	<br />
 </div>
+
 @stop
 

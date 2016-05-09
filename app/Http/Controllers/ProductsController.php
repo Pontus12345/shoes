@@ -11,6 +11,10 @@ class ProductsController extends GlobalController
 {
     private $return;
     private $sHostname;
+
+    /**
+    * @Desc: takes out hostname
+    */
     
     public function __construct() 
     {
@@ -41,6 +45,11 @@ class ProductsController extends GlobalController
         return $oProducts;
     }
     
+    /**
+    * @Desc: render Products page
+    * @param: render the order of the page
+    */
+
     public function ProductsAction($v_order)
     {
         $oProducts = $this->OrderProducts($v_order);
@@ -58,6 +67,11 @@ class ProductsController extends GlobalController
             return back();
         }
     }
+
+    /**
+    * @Desc: render individual products page
+    * @param: render the id of one product
+    */
 
     public function ProductsPage($v_pid)
     {
@@ -77,6 +91,10 @@ class ProductsController extends GlobalController
                 't_oComments' => $t_oComments
             ]);     
     } 
+
+    /**
+    * @Desc: search for products
+    */
 
     public function Search(Request $req)
     {
@@ -107,6 +125,11 @@ class ProductsController extends GlobalController
         }
     }
 
+    /**
+    * @Desc: Displaying Shoes view
+    * @param: render order
+    **/
+
     public function ShoesView($v_order)
     {
         $oProducts_order = $this->OrderProducts($v_order, 'shoes');
@@ -121,7 +144,12 @@ class ProductsController extends GlobalController
             'sHostname' => $this->sHostname
         ]);
     }
-    
+
+    /**
+    * @Desc: Displaying accessories view
+    * @param: render order
+    **/
+
     public function AccessoriesView($v_order)
     {
         $t_oProducts_order = $this->OrderProducts($v_order, 'Accessories');

@@ -9,6 +9,10 @@ class PaymentController extends GlobalController
 {
     private $sHostname;
 
+    /**
+    * Render Cancel and success view 
+    */
+
     public function __construct()
     {
        return $this->sHostname = \Request::server ("HTTP_HOST"); 

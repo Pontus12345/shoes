@@ -26,7 +26,8 @@ class RegisterRequest extends Request
             'Reg_username' => 'required|alpha_num|min:3|max:32',
             'Reg_email' => 'required|email',
             'Reg_password' => 'required|min:3|confirmed',
-            'Reg_password_confirmation' => 'required|min:3'
+            'Reg_password_confirmation' => 'required|min:3',
+            'String' => 'required|min:1'
         ];
     }
 }

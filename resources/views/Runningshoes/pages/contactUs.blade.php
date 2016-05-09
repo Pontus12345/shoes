@@ -14,30 +14,50 @@
 			@if(Session::get('Error'))
 				<h4>{{ Session::get('Error') }}</h4>
 				{{ Session::forget('Error') }}
-				<br />
 			@endif
 
 			@if(Session::get('resived'))
 				<h4>{{ Session::get('resived') }}</h4>
 				{{ Session::forget('resived') }}
-				<br />
+			@endif
+
+			@if (session('rString'))
+				{{ session('rString') }}
+				{{ Session::forget('rString') }}
 			@endif
 			
 			<ul>
-				<li><p>Contact us</p></li>
-				<br />
-				<hr />
-				<br />
+				<li><p>Contact us</p></li> <hr />
 
 				{!! Form::open(array('method' => 'POST', 'url' => "http://$sHostname/contact-us/email")) !!}
 					
-					<li><label for="Name">Name:</label></li>
-					<li>{!! Form::text('name', '', ['class' => 'name-contact','name' => 'name_contact', 'placeholder' => 'Your Name']) !!}</li><br />
-					<li><label for="email">Email:</label></li>
-					<li>{!! Form::email('email', '', ['class' => 'email-contact','name' => 'email_contact', 'placeholder' => 'Your email']) !!}</li><br />
-					<li><label for="Message">Message:</label></li>
-					<li>{!! Form::textarea('text', '', ['class' => 'text-contact','name' => 'text_contact', 'Your text']) !!}</li><br />
-					<li>{!! Form::submit('Send', ['class' => 'btn-sub','name' => 'btn_sub']) !!}</li>
+					<li>
+						<label for="Name">Name:</label>
+					</li>
+
+					<li> 
+						{!! Form::text('name', '', ['class' => 'name-contact','name' => 'name_contact', 'placeholder' => 'Your Name']) !!}
+					</li>
+					
+					<li>
+						<label for="email">Email:</label>
+					</li>
+					
+					<li>
+						{!! Form::email('email', '', ['class' => 'email-contact','name' => 'email_contact', 'placeholder' => 'Your email']) !!}
+					</li>
+
+					<li>
+						<label for="Message">Message:</label>
+					</li>
+
+					<li>
+						{!! Form::textarea('text', '', ['class' => 'text-contact','name' => 'text_contact', 'Your text']) !!}
+					</li>
+
+					<li>
+						{!! Form::submit('Send', ['class' => 'btn-sub','name' => 'btn_sub']) !!}
+					</li>
 
 				{!! Form::close() !!}
 			</ul>

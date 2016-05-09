@@ -24,8 +24,8 @@ class ProfileRequest extends Request
     {
         
         return [
-            'login_username' => 'required|min:5|max:50',  
-            'login_password' => 'required|min:5|max:50',  
+            'login_username' => 'required|min:3|max:50',  
+            'login_password' => 'required|min:3|max:50',  
         ];
     }
 }

@@ -23,7 +23,7 @@ class CreatesubjectRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:222',
+            'name' => 'required|min:3|max:222',
             'form_control_content' => 'required|min:10|max:422',
         ];
     }

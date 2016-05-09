@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 @extends('Runningshoes/layouts.default')
 @section('Runningshoes/content')
 <div class="inner-wrapper">

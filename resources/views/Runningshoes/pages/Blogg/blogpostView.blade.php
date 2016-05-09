@@ -8,14 +8,13 @@
 		<div id="wrap-content-blog">
 			
 			@foreach ($postOrders as $postOrder)
-				<br /> <br />
-				<h2>{{$postOrder->blog_title}}</h2>
-				<br /><hr /><br />
-				<p class="info">{{$postOrder->blog_content}}</p>
-				<br />
-				<img class='imgLarge' src="../{{$postOrder->blog_image}}">
-				<p class="date">{{$postOrder->Date}}</p>
-				<p>Thank you {{$postOrder->By}}</p><br /> <br />
+				<div class="order-blog">	
+					<h2>{{ $postOrder->blog_title }}</h2> <hr />
+					<p class="info">{{ $postOrder->blog_content }}</p>
+					<img class='imgLarge' src="../{{ $postOrder->blog_image }}">
+					<p class="date">{{$postOrder->Date}}</p>
+					<p>Thank you {{$postOrder->By}}</p>
+				</div>
 			@endforeach
 			
 			<!-- Comments -->
@@ -27,7 +26,9 @@
 				@if ($errors)
 
 				@foreach ($errors->all() as $error)
+			
 					<h4>{{ $error }}</h4>
+			
 				@endforeach
 
 				@endif
@@ -40,15 +41,16 @@
 						{!! Form::submit('Add a comment', ['class' => 'add-comment','name' => 'add-comment']) !!}
 					{!! Form::close() !!}
 			</div>
-			<br />
 			
 			<div id="wrapper-comments">
 				@foreach($t_oComments as $comments)
+					
 					<div id="place-comments">
 						<p>{{ $comments->name }}</p>
 						<p>{{ $comments->date }}</p>
 						<p>{{ $comments->comments }}</p>
-					</div><br />
+					</div>
+					
 				@endforeach
 			</div>
 		</div>

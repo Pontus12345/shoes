@@ -2,13 +2,12 @@ $(function() {
 	var pathUrl = "http://"+window.location.hostname+window.location.pathname;
 	doSelect(pathUrl);
 	takeValue();
-	putContent();
 	displayCss();
 	sortDropDownListByText();
 	$('.align-products:last-child').addClass('last-randomproduct');
 	stars();
 	requestRate();
-});
+});     
 
 
 /**
@@ -20,7 +19,9 @@ var stars = function ()
 	var oClsStars = $(".align-page .rating");
 
 	for (var i = 5; i > 0; i--) {
-		oClsStars.append("<span onclick='CountStars("+i+");' class='rate-stars' id='star-"+i+"'>☆</span>");
+		oClsStars.append(
+			"<span onclick='CountStars("+i+");' class='rate-stars' id='star-"+i+"'>☆</span>"
+		);
 	}
 
 };
@@ -93,6 +94,10 @@ function mean(v2_aRates)
 	return Math.floor(iTotal / v2_aRates.length);
 }
 
+/**
+* Adding div
+*/
+
 function wrapContent(con, center)
 {
 	var get = $("<div id='"+con+"'></div>");
@@ -110,9 +115,11 @@ var doSelect = function(pathu)
 	var tag = $(".selectTagBlogg");
 	var urls = pathu.substring(pathu.indexOf("&") + 1);
 	var Bloggselect = document.getElementsByClassName("selectBlogg");
+
 	for (var y = 0; y < Bloggselect.length; y++) {
 		for (var i = 0; i < Bloggselect[y].options.length; i++) {
-			(urls === Bloggselect[y].options[i].value) ? Bloggselect[y].options[i].selected = true : 'false';
+			(urls === Bloggselect[y].options[i].value) 
+				? Bloggselect[y].options[i].selected = true : 'false';
 		}
 	}
 	
@@ -120,6 +127,10 @@ var doSelect = function(pathu)
 		window.location = 'Blogg&'+this.value; 
 	});
 };
+
+/**
+* Render content from api
+*/
 
 function takeValue() 
 {
@@ -137,58 +148,58 @@ function takeValue()
 		$.ajax({
 			type: 'POST',
 			url: 'Post/Comments',
-			data: { pname: name.serialize(), pComment: makeComm.serialize(), pemail: CommentEmail.serialize(), pPage: $("#pcomments").serialize()},
+			data: { pname: name.serialize(), 
+				pComment: makeComm.serialize(), 
+				pemail: CommentEmail.serialize(), 
+				pPage: $("#pcomments").serialize()
+			},
+
 			success: function(response) {}
 		});
 		
-		$("#displaypostAbove").append('<p>'+name.serialize()+'</p>'+'<p>'+makeComm.serialize()+'</p>');	
+		$("#displaypostAbove").append(
+			'<p>'+name.serialize()+'</p>'+'<p>'+makeComm.serialize()+'</p>'
+		);	
 
-		name.val("");makeComm.val("");CommentEmail.val("");
+		name.val("");
+		makeComm.val("");
+		CommentEmail.val("");
 
 	});
 
 	makeComment.appendTo(pushComments);
 }
 
+/**
+* Error report
+*/
+
 function storeValue(values)
 {
-	var ret = (values === '') ? 'What Happend!, Value is empty': localStorage.setItem('#makeComment', values);
+	var ret = (values === '') 
+		? 'What Happend!, Value is empty' : localStorage.setItem('#makeComment', values);
+	
 	return ret;	
 }
+
+/**
+* Show Comments validering
+*/
 
 function commentsValidering(string, div, image)
 {
 	var stringSecond = (string === 'error') ? '<p>All fields are required</p>': ''; 
+	
 	if ($("."+string).length <= 0) {	
-		div.html("<div class='"+string+"'><img src='"+image+"'><p>"+string+'</p>'+stringSecond+'</div>');
+		div.html(
+			"<div class='"+string+"'><img src='"+image+"'><p>"+string+'</p>'+stringSecond+'</div>'
+		);
 	}
 }
 
-function putContent()
-{
-	var aPages = ['Comment'];
-	if (false)
-		for (var i = 0; i < aPages.length; i++) {	
-			$.ajax({
-				type: 'POST',
-				url: 'Post/Comments',
-				data: { pages: aPages[i]},
-				success: function(s_tComments) {
-					if (s_tComments.data.hasOwnProperty(0)) {
-						for (var i = 0; i < s_tComments.data.length; i++) {	
-							if(s_tComments.data[i].pages === $("#pcomments").val()) {
-								$("#displayPostComments").append('<p>'+s_tComments.data[i].name+'</p>'+'<p>'+s_tComments.data[i].comments+'</p>');	
-							}
-						}
-					} else {
-						$("#displayPostComments").append('<p>Be the first to comentate here</p>');	
-					}
-
-				}
-			});
-		}
-}
-
+/**
+* Show register and login button
+*/
 
 function toggleClock() { 
 	var loginId = document.getElementById('log-in');
@@ -198,15 +209,23 @@ function toggleClock() {
 	var displaySettingReg = regId.style.display;
 
 	if (displaySettingLog == 'block') { 
+	
 		loginId.style.display = 'none';
 		regId.style.display = 'block';    	
 		btnId.innerHTML = 'Show Log in';
+	
 	} else {  
+	
 		loginId.style.display = 'block';
 		regId.style.display = 'none';
 		btnId.innerHTML = 'Show Register';
+	
 	}
 }
+
+/**
+* Setup css none and display block
+*/
 
 function displayCss(){
 	var regId = document.getElementsByClassName('users-group-in');
@@ -223,6 +242,10 @@ function displayCss(){
 		}
 	}
 }
+
+/**
+* Dropdown list sort values
+*/
 
 function sortDropDownListByText() {
 
@@ -241,6 +264,10 @@ function sortDropDownListByText() {
     	$(this).val(selectedValue);
     });
 }
+ 
+/**
+* Making slideshow
+*/
 
 $(document).ready(function(){	
 	$(".slides").slice(1).hide();

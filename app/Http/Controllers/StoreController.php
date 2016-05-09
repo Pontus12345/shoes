@@ -13,9 +13,9 @@ use App\Models\Cart;
 use App\Models\BloggModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use App\Http\controllers\GlobalController;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\CommentsRequest;
+use App\Http\Controllers\GlobalController;
 
 class StoreController extends GlobalController
 {
@@ -28,17 +28,25 @@ class StoreController extends GlobalController
     private $sHostname;
     private $getFullPriceProd;
 
+    /**
+    * @Desc: Take out url
+    */
+
     public function __construct()
     {
         return $this->sHostname = \Request::server ("HTTP_HOST");
     }
+    
+    /**
+    * @Desc: render view  
+    */
 
     public function StoreAction()
     {
         return View('Runningshoes/pages/Home')->with([
             'getRandomProducts' => Products::randomize($this->limit)->get(),
             'Slides' => Slides::all(),
-            ]);
+        ]);
     }
 
     /**
@@ -94,24 +102,29 @@ class StoreController extends GlobalController
         }
     }
     
+    /**
+    * @Desc: adding cart and making max limit of products in cart
+    * @method: removing one from product 
+    */
+
     public function addCart()
     {   
         if (count(Session::get('user_id')) === 0){
 
             return redirect('Log-in');
-        
-        } else {  
             
+        } else {  
+
             $aArrQty = [];
 
             $t_oCarts = Cart::GetCart();
             
             foreach ($t_oCarts as $t_oCart) {
-                
-               $aArrQty[] = (int) $t_oCart->cart_pro_qty;
-            }
 
-            if (count($t_oCarts) > 30 || in_array(30, $aArrQty)) {
+               $aArrQty[] = (int) $t_oCart->cart_pro_qty;
+           }
+
+           if (count($t_oCarts) > 30 || in_array(30, $aArrQty)) {
 
                 return redirect("http://$this->sHostname/Shoppingcart")->with(
                    'cartMax', 'Max limit of products in cart'
@@ -138,7 +151,7 @@ class StoreController extends GlobalController
                             Input::get('btn_hidden_id'), 
                             $iQtyCart,
                             $this->getFullPriceProd
-                        ); 
+                            ); 
                     }
 
                     $this->updateProductsStock(Input::get('btn_hidden_id'));
@@ -151,10 +164,11 @@ class StoreController extends GlobalController
                     * exit after return fixed the problem 
                     */
 
-               } else {
+                   } else {
 
                     $this->qtyC = '1';
                     $this->getFullPriceProd = $t_pPro->Products_price * $this->qtyC;
+                    
                     Cart::Insertcart(
                         $t_pPro->products_name, 
                         $t_pPro->Products_price,
@@ -165,7 +179,7 @@ class StoreController extends GlobalController
                         $this->qtyC,
                         Session::get('user_id'),
                         $t_pPro->products_id
-                    );
+                        );
 
                     $this->updateProductsStock(Input::get('btn_hidden_id'));
 
@@ -174,6 +188,10 @@ class StoreController extends GlobalController
             }
         }
     }
+    
+    /**
+    * @Desc: -1 in product stock
+    */
 
     private function updateProductsStock($v_oProdid, $sOpt = Null) 
     {
@@ -182,6 +200,10 @@ class StoreController extends GlobalController
         Products::UpdateStock($v_oProdid, $sOpt);        
     }
 
+    /**
+    * Removing One from cart
+    */
+
     public function removeCartspro()
     {
         if (count(Session::get('user_id')) == 0) {
@@ -189,15 +211,15 @@ class StoreController extends GlobalController
             return redirect('/');
 
         } else {  
-            
+
             $aArrQty = [];
 
             $t_oCart = DB::table('shoppingcart')->select('cart_pro_qty')->get();
             
             foreach ($t_oCart as $v_t_oCart) {
-                
+
                 $aArrQty[] = (int) $v_t_oCart->cart_pro_qty;
-            
+                
             }
 
             if (max($aArrQty) > 1) {
@@ -210,7 +232,7 @@ class StoreController extends GlobalController
 
                 DB::table('shoppingcart')->where(
                     'prod_id', '=', $_GET['prod_idremove']
-                )->take(1)->delete();
+                    )->take(1)->delete();
 
                 Products::IncUpdateStock($_GET['prod_idremove'], 'remove');
             }
@@ -219,6 +241,9 @@ class StoreController extends GlobalController
         }
     }
 
+    /**
+    * @Desc: Show cart price for all products inclusive moms 
+    */
 
     private function totalCart($v1_conn, $v2_cart, $v3_getuser, $v4_session, $v5_fullprice)
     {   
@@ -229,9 +254,8 @@ class StoreController extends GlobalController
         )->get();
 
         foreach ($t_oTotalsCosts as $t_oTotalsCost) {
-       
-            $aPrice[] = (int) $t_oTotalsCost->cart_pro_qty * (int) $t_oTotalsCost->shoppingcart_prod_price;                
-        
+
+            $aPrice[] = (int) $t_oTotalsCost->cart_pro_qty * (int) $t_oTotalsCost->shoppingcart_prod_price;                  
         }
 
         $iSum = array_sum($aPrice);
@@ -249,13 +273,17 @@ class StoreController extends GlobalController
                 'partC' => $oPartC,
                 'onlyM' => $iOnlyM,
                 'totalCM' => $iTotalCM,
-            ]);
+                ]);
 
             return $iTotalCM;
-        
+            
         }
     }
 
+    /**
+    * @Desc: Render forum categori
+    */
+    
     public function sublink($v_createsubje)
     {
         $t_oCreateSub = DB::table('submenu')->join(
@@ -269,13 +297,13 @@ class StoreController extends GlobalController
         if (!count($t_oCreateSub)) {
 
             return redirect('Products');
-        
+            
         } else {
 
             return View('Runningshoes/pages/'.$v_createsubje)->with([
                 'getforumCats' => $t_oGetforumCats,
             ]); 
-        
+            
         }
     }  
 
@@ -284,23 +312,28 @@ class StoreController extends GlobalController
         return View('Runningshoes.pages.aboutUs')->with([
             'infoPages' => DB::table('menus')->where(
                 'menu_name', '=', 'About us'
-            )->get(),
-        ]);
+                )->get(),
+            ]);
     }
 
     public function contactUsView()
     {
+        Session::put('sRandomAuth', $this->sRandom);
+
         return View('Runningshoes.pages.contactUs')->with([
             'infoPages' => DB::table('menus')->where(
                 'menu_name', '=', 'About us'
                 )->get(),
             'sHostname' => $this->sHostname
-        ]);
+            ]);
     }
 
+    /**
+    * @Desc: Send email to pontusp66J@gmail.com
+    */
 
     public function sendEmail(ContactRequest $request)
-    {
+    {       
         if ($request) {
 
             $this->email = $request->email_contact;
@@ -310,32 +343,40 @@ class StoreController extends GlobalController
 
             Mail::send('Runningshoes.pages.emails.reminder', ['text' => $this->text, 'name' => $this->name, 'email' => $this->email], function ($message) use ($data) {
 
-                    $message->from($data['email'], $data['name']);
-                    $message->to('pontusp66J@gmail.com', 'Pontus')->subject('Runningshoes');
-                
-                });            
+                $message->from($data['email'], $data['name']);
+                $message->to('pontusp66J@gmail.com', 'Pontus')->subject('Runningshoes');
+
+            });            
 
             return back()->with('resived', 'We have resived your Email');
+        
         } else {
 
             return abort(404);
-        
-        }
-    }
 
+        }
+        
+    }
+    
+    /**
+    * @desc: Render categori view with products
+    */
+    
     public function cat($v_id)
     {
         $aBanners = [];
 
-        $t_oCa = DB::table('cats')->join('products', 'Cat_id','=', 'product_cat')->where(
+        $t_oCa = DB::table('cats')->join(
+            'products', 'Cat_id','=', 'product_cat'
+        )->where(
             'categories_title', '=', $v_id
         )->get();
 
         foreach ($t_oCa as $v_ban) {
-            
+
             $aBanners[] = $v_ban->banner_link;      
             break;
-        
+            
         }
 
         $oCats = (count($t_oCa) > 0) ? View('Runningshoes.pages.products.cats')->with([
@@ -347,21 +388,25 @@ class StoreController extends GlobalController
         return $oCats;
     }
 
+    /**
+    * @desc: Render Brand view with products
+    */
+
     public function brand($v_id)
     {
         $aBanners = [];
 
         $t_oBa = DB::table('brands')->join(
             'products', 'Brand_id','=', 'product_brand'
-        )->where(
+            )->where(
             'categories_title', '=', $v_id
-        )->get();
+            )->get();
 
         foreach ($t_oBa as $v_ban) {
-            
+
             $aBanners[] = $v_ban->banner_link;      
             break;
-        
+            
         }
 
         $oBrands = (count($t_oBa) > 0) ? View('Runningshoes.pages.products.brands')->with([
@@ -369,7 +414,7 @@ class StoreController extends GlobalController
             'brands' => $t_oBa,
             'sHostname' => $this->sHostname,
             'page' => $v_id,
-        ]) : abort(403);
+            ]) : abort(403);
 
         return $oBrands;
     }
@@ -394,7 +439,7 @@ class StoreController extends GlobalController
                 $this->return = true;
 
                 $oOrders = BloggModel::ColumnsOrder($v_order, $t_oGetcolumnsO);
-            
+                
             } else {
 
                 $returnfalse = false;
@@ -402,7 +447,7 @@ class StoreController extends GlobalController
         }
 
         if ($this->return === true) {
-            
+
             $d_Ord = $this->ClosetsDate($oOrders);
 
             return View('Runningshoes.pages.blogg.BloggView')->with([
@@ -410,15 +455,19 @@ class StoreController extends GlobalController
                 'orders' => $oOrders,
                 'getcolumnsO' => $t_oGetcolumnsO,
                 'closetsdate' => $d_Ord,
-            ]);
+                ]);
 
         } elseif($returnfalse === false) {
 
             return back();
-        
+            
         }
     }
 
+    /**
+    * @Desc: render bloggviewId
+    */
+    
     public function BloggPostView($v_order)
     {
         $t_oPostOrder = BloggModel::where("ID","=", $v_order)->get();
@@ -437,14 +486,21 @@ class StoreController extends GlobalController
         ]);
     }
 
+    /**
+    * Take out closets date from blogg
+    * @param V1 = what order,
+    * @param V2 = that date,
+    * @param V3 = choose what date it will aim for, 
+    */
+
     private function ClosetsDate($v1_orders, $v2_date = [], $v3_dateClosets = [])
     {
         if (is_object($v1_orders) && $v2_date === [] && $v3_dateClosets === []) {
 
             foreach ($v1_orders as $v_order) {
-                
+
                 $v2_date[] = $v_order->Date;
-            
+                
             }
 
             $d_baseDate = date_create('2016-05-04');
@@ -455,7 +511,7 @@ class StoreController extends GlobalController
                 $datetime = date_create($v2_date[$i]);
                 $interval = date_diff($d_baseDate, $datetime);
                 $newDate[$interval->format('%s')] = $v2_date[$i];
-            
+                
             }
 
             ksort($newDate);
@@ -465,30 +521,36 @@ class StoreController extends GlobalController
             foreach($splice as $v_splice => $arg_opt) {
 
                 $v3_dateClosets[] = $v_splice;
-            
+                
             }
 
             return $v3_dateClosets;
 
         } else {
-            
+
             abort(403);
-        
+            
         }
     }
+
+    /**
+    * @Desc: making comments 
+    */
 
     public function Comments(CommentsRequest $req) 
     {   
         if ($req) {
 
             if (!isset($req->comments_products_id) || !isset($req->comments_blogg_id)) {
-            
+
                 if (!isset($req->comments_products_id)) {
-            
+
                     $req->comments_products_id = null;
+                
                 } elseif(!isset($req->comments_blogg_id)) {    
-            
+
                     $req->comments_blogg_id = null;
+                
                 }
             }
 

@@ -23,7 +23,7 @@ class ContactRequest extends Request
     public function rules()
     {
         return [
-            'name_contact' => 'required|alpha_num|min:10|max:300',
+            'name_contact' => 'required|alpha_num|min:5|max:300',
             'email_contact' => 'required|email',
             'text_contact' => 'required|alpha_num|min:10|max:1000',
         ];

@@ -39,7 +39,25 @@ body aside ul li p a {
 #blogView {
 	display: inline-block;
 	width: 60%;
-	margin-left: 50px; 
+	margin:0 0 20px 50px; 
+}
+
+.order-blog {
+	margin: 20px 0;
+	word-wrap: break-word;
+}
+
+.order-blog .info {
+	margin: 10px 0;
+}
+
+.order-blog h2, h5 {
+	margin: 10px 0;
+	color: red;
+}
+
+.order-blog hr {
+	margin: 10px 0;
 }
 
 #logo {
@@ -53,8 +71,13 @@ body .align-products a {
 	text-decoration:none;
 	color: #000;
 }
+
+body #blog-wrapper-View {
+	width: 100%;
+	margin: auto;	
+}
+
 body .Artic-inner-wrapper {
-	width: 90% !important;
 	margin: auto;
 }
 
@@ -167,22 +190,10 @@ nav li:hover > a {
 	border-color:1px solid #290000; 
 }
 
-/* Nav dropdown 
---------------*/
+/**
+* Style slideshow
+*/
 
-
-
-
-
-
-
-/* End Header styling
--------------------*/
-
-
-
-/* Style slideshow homepage content
-----------------------------------*/
 #slideshow { 
 	display: inline-block;
 	position: relative;
@@ -190,7 +201,7 @@ nav li:hover > a {
 	width: 55.5%; 
 	height: 300px; 
 	padding: 10px 0;  
-	margin:40px 0 0 0;
+	margin:40px 0;
 }
 
 #slideshow img {
@@ -209,6 +220,7 @@ nav li:hover > a {
 -------*/
 iframe {
 	width: 100%;
+	margin: 50px 0 0 0;
 }
 #clipp{
 	float: right;
@@ -324,8 +336,18 @@ footer #menu-footer ul li a{
 	color: #fff;
 }
 
-/* cart
-------*/
+/**
+* Cart
+*/
+
+.space {
+	margin: 30px 0;
+}
+
+.cart-center hr,.cart-center h3 {
+	margin-bottom: 30px;
+}
+
 #productsName {
 	display: inline-block;
 	vertical-align: top;
@@ -340,11 +362,33 @@ footer #menu-footer ul li a{
 #productsName p{
 	text-align: left;
 }
+
+#sRandom {
+	color: red;
+	font-size: 23px;
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */
+    transform: rotate(7deg);
+}
+
 .vert-align{
 	height: 560px;
 	display: table-cell;
 	vertical-align: middle;
 }
+
+/**
+* Forum
+*/
+
+body #forum-id p , #forum-id h2, #forum-id a {
+	margin: 10px 10px;
+}
+
+body #forum-id hr {
+	margin: 20px 0;
+}
+
 .vert-align .linked {display: inline-block; width: 40%;}
 
 .vert-align select{
@@ -358,7 +402,7 @@ footer #menu-footer ul li a{
 	padding: 10px;
 	border-radius: 5px;
 }
-.vert-align label{font-size: 22px; width: 50%; margin: 0 0 20px 0}
+.vert-align label{font-size: 22px; width: 49.5%; margin: 0 0 20px 0}
 #align-name-cat{width: 100%; margin:20px 0; }
 .vert-align .form-control{
 	height: 234px;
@@ -368,6 +412,9 @@ footer #menu-footer ul li a{
 	font-size: 22px;
 	text-align: center;
 	width: 100%;
+}
+.errors {
+	margin: 20px 10px;
 }
 .vert-align .btn-sub{
 	padding: 10px;
@@ -429,10 +476,20 @@ footer #menu-footer ul li a{
 
 /* Product page
 --------------*/
+#productpage {
+	margin: 10px 0;
+}
+
+#productpage hr {
+	margin: 10px 0;
+}
 
 #page-header p{
 	font-size: 27px;
 	margin-top: 10px;
+}
+#page-header hr {
+	margin: 20px 0;
 }
 
 .getProduct-info-p{
@@ -441,6 +498,9 @@ footer #menu-footer ul li a{
 	margin-right: 40px;
 	margin-bottom: 20px;
 	width: 25%;
+}
+.getProduct-info hr {
+	margin: 10px 0;
 }
 
 .getProduct-info-p img{
@@ -471,6 +531,10 @@ footer #menu-footer ul li a{
 	width: 80%;
 }
 
+#product_page hr {
+	margin: 20px 0;
+}
+
 /* Forum cat
 -----------*/
 
@@ -485,6 +549,10 @@ footer #menu-footer ul li a{
 	margin: auto; 
 }
 
+.center hr {
+	margin: 20px 0;
+}
+
 #forum-center a {
 	text-decoration: none;
 	font-size: 25px;
@@ -493,13 +561,13 @@ footer #menu-footer ul li a{
 	margin: 0px 10px 0px 0;
 }
 
-.cat-forum{
-
+.cat-forum hr {
+	margin: 20px 0;
 }
 
 #forum-center p {
 	font-size: 22px;
-	margin-top: 10px;
+	margin: 20px;
 }
 
 #forum-center a:hover{
@@ -507,13 +575,18 @@ footer #menu-footer ul li a{
 }
 
 
-/* About us page
----------------*/
+/** 
+* About us page
+*/
 
-#info-aboutus{
+#info-aboutus {
 	display: inline-block;
 	width: 70%; 
 	margin-left: 5.5%;
+}
+
+#info-aboutus h2,#info-aboutus h3, #info-aboutus h5, #info-aboutus p, #info-aboutus a,#info-aboutus hr {
+	margin: 50px 0;
 }
 
 .float-right-element{
@@ -551,13 +624,19 @@ footer #menu-footer ul li a{
 	margin: 0 auto;
 }
 
+#fly-inner p,#fly-inner label {
+	margin: 25px 0 !important;
+}
+
 #fly-inner ul li{
 	list-style: none;
 }
+
 #fly-inner ul li input{
 	padding: 5px 0 5px 5px;
-	width: 70%;
+	width: 72%;
 }
+
 #fly-inner ul li .btn-sub {
     background-color: #6DB000;
     border-width: 0px 0px 2px;
@@ -819,9 +898,6 @@ body .content, #beside {
 .blogg-right {
   display: inline-block; }
 
-.Artic-inner-wrapper {
-  display: inline-block; }
-
 .right-aside {
   display: inline-block; }
 
@@ -834,13 +910,13 @@ body .content, #beside {
   height: 200px; }
 
 .imgLarge {
-  width: 614px;
-  height: 614px; }
+  width: 575px;
+  height: 590px; }
 
 /*Regular css expression
 -------------*/
 body content p {
-  line-height: 33px; }
+  line-height: 33px; color: red;}
 body content #Random-product img {
   width: 150px;
   height: 150px; }
@@ -888,10 +964,8 @@ body .align-products {
     font-weight: normal;
     font-family: 'Lato',san-serif; }
 body .facebook-logo {
-  width: 95px;
-  height: 25px; }
-body .Artic-inner-wrapper {
-  width: 100%; }
+  width: 115px;
+  height: 35px; }
   body .Artic-inner-wrapper ul {
     background-color: #f5f5f5;
     line-height: 36px;
@@ -901,7 +975,7 @@ body .Artic-inner-wrapper {
       padding-top: 5px;
       padding-bottom: 5px;
       padding-right: 10px;
-      margin: 0 30px 0 0; }
+      margin: 0 30px 0 0; color: red;}
       body .Artic-inner-wrapper ul li select {
         border-color: #999;
         color: #333; }
@@ -931,7 +1005,7 @@ body #wrap-content h2 {
   white-space: nowrap; }
 body #wrap-content .info {
   padding: 0 0 22px;
-  line-height: 30px; }
+  line-height: 30px;}
 body #wrap-content .date {
   color: #000;
   font: 13px; }

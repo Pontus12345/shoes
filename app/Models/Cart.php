@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
 	protected $table = 'shoppingcart';  
+	
+	/**
+	* @Desc: Insert in cart (product)
+	*/
 
 	public function scopeInsertcart ($query, $v1_oName, $v2_oPrice, $v3_oFullprice, $v4_oTitle, $v5_oLabel, $v6_oImage, $v7_iQty, $v8_sUserid, $v9_oProdid) 
 	{
@@ -21,6 +25,10 @@ class Cart extends Model
 			'prod_id' => $v9_oProdid,
 		]);
 	}
+	
+	/**
+	* @Desc: Uppdate cart 
+	*/
 
 	public function scopeUpdateCart ($query, $v1_g_oId, $v2_oQty, $v3_oFullprice) 
 	{
@@ -30,11 +38,19 @@ class Cart extends Model
 			'full_prise_prod' => $v3_oFullprice,
 		]);
 	}
-
+	
+	/**
+	* @Desc: Take out cart
+	*/
+	
 	public function scopeGetCart ($query) 
 	{
 		return $query->where('cart_user_id', '=', session('user_id'))->get();
 	}
+
+	/**
+	* @Desc: Remove Cart qty if it exist
+	*/
 
 	public function scopeRemoveQty($query, $v1_oProdId, $v2_oCart) 
 	{
@@ -44,5 +60,4 @@ class Cart extends Model
 			'cart_pro_qty' => $v2_oCart
 		]);
 	}
-
 }

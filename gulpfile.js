@@ -1,6 +1,7 @@
+var gulp = require('gulp');
 
-/*
-* Requires the gulp plugins
+/**
+* @Desc: Requires the gulp plugins Compiling sass, js
 */
 
 var concat = require('gulp-concat');

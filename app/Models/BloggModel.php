@@ -8,6 +8,10 @@ class BloggModel extends Model
 {
     protected $table = 'blog';
     
+    /**
+    * Making order of products
+    */
+
 	public function scopeColumnsOrder($query, $v_oOrder, $v_oGetcolumns)
 	{    
         foreach ($v_oGetcolumns as $v_oGetcolumn) 

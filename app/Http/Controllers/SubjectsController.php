@@ -13,35 +13,51 @@ class SubjectsController extends GlobalController
 {
     private $sHostname;
 
-
     public function __construct()
     {
         if (!session('user_id')) return abort(401); 
         
         return $this->sHostname = \Request::server('HTTP_HOST');
     }
+    
+    /**
+    * @Desc: Tae out date
+    */
 
     private function getDate() 
     {
         return new \DateTime();
     }
 
+    /**
+    * @Desc: checking if user is logged in
+    */
+
     private function Auth() 
     {   
         return (!session('username')) ? back() : Null;
     }
 
+    /**
+    * @Desc: Render forum view
+    */
+
     public function ForumView()
     {
         $get_forums = DB::table('forum_cat')->groupBy(
             'Forum_cat_name'
-        )->orderBy('Forum_cat_id', 'DESC')->get();
+            )->orderBy('Forum_cat_id', 'DESC')->get();
         
         return View('Runningshoes/pages/forum/Forum')->with([
             'forum_cats' => $get_forums,
             'sHostname' => $this->sHostname
-        ]);
+            ]);
     }
+
+    /**
+    * @Desc: Render forum id
+    * @param: order by the last inserted first
+    */
 
     public function showSubjectsID($v_id)
     {
@@ -50,106 +66,124 @@ class SubjectsController extends GlobalController
         )->where("Forum_cat_name","=", $v_id)->orderBy(
             'subjects_id', 'DESC'
         )->get();
-        
+
         $v_oPostsubject = (count($t_oPostsubjects) === 0) ? 
-            redirect("http://$this->sHostname/Forum/create/Subjects")
-             : View('Runningshoes/pages/forum/Forumid')->with([
-                'postsubjects' => $t_oPostsubjects,
-                'categori' => $v_id,
-                'sHostname' => $this->sHostname
+        redirect("http://$this->sHostname/Forum/create/Subjects")
+        : View('Runningshoes/pages/forum/Forumid')->with([
+            'postsubjects' => $t_oPostsubjects,
+            'categori' => $v_id,
+            'sHostname' => $this->sHostname
             ]);
 
         return $v_oPostsubject;
     }
 
+    /**
+    * @Desc: Render view for create subject
+    */
 
     public function createSubjectView()
     {     
+
         $this->Auth();
-       
+
         $t_oForumcats = DB::table('forum_cat')->lists(
             'Forum_cat_name','Forum_cat_id'
-        );
+            );
 
         return View('Runningshoes.pages.forum.New-subjects')->with([
             'getforumCats' => $t_oForumcats, 
             'sHostname' => $this->sHostname
-        ]);
+            ]);
     }
 
+
+    /**
+    * @Desc: Creating subject for each forum
+    */
+
     public function createSubject(CreatesubjectRequest $request)
-    {
+    {   
         if ($request->name) {
 
             if (DB::table('subjects')->where('subjects_name', '=', $request->name)->get()) {
 
-               return back()->with('reply', 'The name already exist');   
-            }
+             return back()->with('reply', 'The name already exist');   
+         }
 
-            $oCreateSubject = new CreateSubjectCommand(
-                $request->name,
-                $request->form_control_content,
-                $request->cat
-            );
+         $oCreateSubject = new CreateSubjectCommand(
+            $request->name,
+            $request->form_control_content,
+            $request->cat
+        );
 
-            $this->dispatch($oCreateSubject);
+         $this->dispatch($oCreateSubject);
 
-            return back()->with('Subject', 'You Have Created A New Subject');
-        
-        } else {  
-
-            return back();
-        
+        return back()->with('Subject', 'You Have Created A New Subject');
         }
     }
+    
+    /**
+    * @Desc: Render subjects id view
+    * @param: take out the id from database
+    */
 
     public function postSubjectid($v_id)
     {
         $t_oPostsubjectsid = DB::table('subjects')->where(
             'subjects_name', '=',$v_id
-        )->get();
-        
+            )->get();
+
         $t_oReplys = DB::table('reply')->where('reply_topic', '=',$v_id)->orderBy(
             'reply_id', 'DESC'
-        )->get();
+            )->get();
 
         $oPostsub = (count($t_oPostsubjectsid) === 0) ? back() :
-            View('Runningshoes/pages/forum/PostSubjectid')->with([
-                'postsubjectsid' => $t_oPostsubjectsid,
-                'replys' => $t_oReplys,
-                'sHostname' =>$this->sHostname
+        View('Runningshoes/pages/forum/PostSubjectid')->with([
+            'postsubjectsid' => $t_oPostsubjectsid,
+            'replys' => $t_oReplys,
+            'sHostname' =>$this->sHostname
             ]);
 
         return $oPostsub;
     }
 
+    /**
+    * @Desc: Render view
+    */
+    
     public function replyView($v_id)
     {
         $this->Auth();
 
         $t_oPostsubjects = DB::table('subjects')->where(
             'subjects_id', '=', $v_id
-        )->get();
+            )->get();
 
         $oPostsubject = (count($t_oPostsubjects) === 0) ? 
         back()->with('sPostsubject', 'There is no posted subjects yet') 
         : View('Runningshoes/pages/forum/replyView')->with([
-                'postsubjects' => $t_oPostsubjects,
-                'sHostname' => $this->sHostname
+            'postsubjects' => $t_oPostsubjects,
+            'sHostname' => $this->sHostname
             ]);
-    
+
         return $oPostsubject;
     }
+
+    /**
+    * @Desc: create reply to subject id
+    */
 
     public function createreply(ReplyRequest $request)
     {
         $this->Auth();
 
         if (isset($_POST)) {
-            
+
             if (DB::table('reply')->where('reply_name', '=', $request->reply_name)->get()) {
-               
-               return back()->with('reply', 'The name already exist');   
+
+                return back()->with('reply', 'The name already exist');   
+            
             }
 
             DB::table('reply')->insert([
@@ -161,18 +195,27 @@ class SubjectsController extends GlobalController
             ]); 
 
             return back()->with('reply', 'Your Reply Have been added');
-        }
+         }
     }
 
+    /**
+    * @Desc:Remove reply
+    * @param: take out the table, and take out id of reply, remove if user
+    * is logged in 
+    **/
 
     public function replyDestroy($oTable, $v_oContent, $vS_oContent, $v3_id)
     {
         DB::table($oTable)->where(
             $v_oContent, '=', $v3_id
-        )->where($vS_oContent,'=', Session::get('username'))->delete();
-        
+            )->where($vS_oContent,'=', Session::get('username'))->delete();
+
         return redirect('/');
     }
+
+    /**
+    * @Desc: take out subjetcts if it's aktive
+    */
 
     public function Aktuella_Subjects()
     {
