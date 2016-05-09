@@ -43,7 +43,7 @@ class StoreController extends GlobalController
 
     public function StoreAction()
     {
-        return View('Runningshoes/pages/Home')->with([
+        return View('Runningshoes/pages/home')->with([
             'getRandomProducts' => Products::randomize($this->limit)->get(),
             'Slides' => Slides::all(),
         ]);
