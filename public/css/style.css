@@ -633,7 +633,7 @@ body #forum-id hr {
 }
 
 #fly-inner ul li input{
-	padding: 5px 0 5px 5px;
+	padding: 10px 0;
 	width: 72%;
 }
 
@@ -644,6 +644,7 @@ body #forum-id hr {
 	color: #fff;
     cursor: pointer;
 	text-align: center;
+	padding: 10px 0;
 }
 /* Product page
 ----------------*/
