@@ -450,7 +450,7 @@ class StoreController extends GlobalController
 
             $d_Ord = $this->ClosetsDate($oOrders);
 
-            return View('Runningshoes.pages.blogg.BloggView')->with([
+            return View('Runningshoes.pages.Blogg.BloggView')->with([
                 'getBloggs' => $t_ogGetBloggs,
                 'orders' => $oOrders,
                 'getcolumnsO' => $t_oGetcolumnsO,
@@ -478,7 +478,7 @@ class StoreController extends GlobalController
             'pages', '=', "blogg$v_order"
         )->orderBy('id', 'DESC')->get();
 
-        return View('Runningshoes.pages.blogg.blogpostView')->with([
+        return View('Runningshoes.pages.Blogg.blogpostView')->with([
             'postOrders' => $t_oPostOrder,
             't_oComments' => $t_oComments,
             'id' => $v_order,
