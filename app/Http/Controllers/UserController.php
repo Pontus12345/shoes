@@ -183,16 +183,31 @@ class UserController extends GlobalController
     public function UpdateAcc(UpdateRequest $request)
     {   
         if (session('username')) {
+            $aArrUser = [];
 
-            $this->dispatch(new UpdateUserJob(
-                $request->update_username,
-                Hash::make($request->update_password), 
-                $request->update_email)
-            );
+            $t_oUsers = User::all();
+            
+            foreach ($t_oUsers as $t_oUser) {
+                    
+                if ($t_oUser->username === $request->update_username) {
+                    $aArrUser = $request->update_username;
+                    break;
+                }
 
-            return back()->with(
-                'Updated', 'You have updated your login information correct'
-            );
+            }
+
+            if (empty($t_oUsers)) {
+                
+                $this->dispatch(new UpdateUserJob(
+                    $request->update_username,
+                    Hash::make($request->update_password), 
+                    $request->update_email)
+                );
+
+                return back()->with(
+                    'Updated', 'You have updated your login information correct'
+                );
+            }    
 
         } else {
 
