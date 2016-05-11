@@ -183,6 +183,7 @@ class UserController extends GlobalController
     public function UpdateAcc(UpdateRequest $request)
     {   
         if (session('username')) {
+            
             $aArrUser = [];
 
             $t_oUsers = User::all();
@@ -190,14 +191,16 @@ class UserController extends GlobalController
             foreach ($t_oUsers as $t_oUser) {
                     
                 if ($t_oUser->username === $request->update_username) {
+                    
                     $aArrUser = $request->update_username;
                     break;
+
                 }
 
             }
 
             if (empty($t_oUsers)) {
-                
+
                 $this->dispatch(new UpdateUserJob(
                     $request->update_username,
                     Hash::make($request->update_password), 
