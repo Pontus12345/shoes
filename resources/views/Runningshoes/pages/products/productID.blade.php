@@ -72,11 +72,11 @@
 			
 				<div id="place-comments">
 						<div class="rating-star">
-							<span class='rate-stars rate-stars-{{$comments->rate}}' id='star-1'>☆</span>
-							<span class='rate-stars rate-stars-{{$comments->rate}}' id='star-2'>☆</span>
-							<span class='rate-stars rate-stars-{{$comments->rate}}' id='star-3'>☆</span>
-							<span class='rate-stars rate-stars-{{$comments->rate}}' id='star-4'>☆</span>
-							<span class='rate-stars rate-stars-{{$comments->rate}}' id='star-5'>☆</span>
+							<span class='remove rate-stars-{{$comments->rate}}' id='star-1'>☆</span>
+							<span class='remove rate-stars-{{$comments->rate}}' id='star-2'>☆</span>
+							<span class='remove rate-stars-{{$comments->rate}}' id='star-3'>☆</span>
+							<span class='remove rate-stars-{{$comments->rate}}' id='star-4'>☆</span>
+							<span class='remove rate-stars-{{$comments->rate}}' id='star-5'>☆</span>
 						</div>
 					
 					<h2>{{ $comments->name }}</h2>
