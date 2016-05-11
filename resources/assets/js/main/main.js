@@ -57,27 +57,22 @@ var requestRate = function()
 	$.post( "http://"+window.location.hostname+"/products/Comments", function( response ) {
 
 		var aRate = [];
-
-		for (var i = 0; i < response.data.length; i++) {
-			
-			aRate.push(response.data[i].rate);
-		}
-		
 		var href = window.location.href;
 
 		for (var i = 0; i < response.data.length; i++) {
-
+		
 			if (response.data[i].comments_products_id == href.substr(href.lastIndexOf('/') + 1)) {
 
-				$( ".rate-stars" ).addClass("rate-stars-"+mean(aRate));	
+				aRate.push(response.data[i].rate);	
 
-				break;
 			}
 		}
-
+		console.log(aRate);
+		$( ".rate-stars" ).addClass("rate-stars-"+mean(aRate));	
+		
 	});		
 };
-
+ 
 /**
 * Calculate mean
 */
@@ -85,7 +80,7 @@ var requestRate = function()
 function mean(v2_aRates) 
 {
 	var iTotal = 0; 
-	
+
 	for (var i = 0; i < v2_aRates.length; i += 1) {
 		
 		iTotal += v2_aRates[i];
